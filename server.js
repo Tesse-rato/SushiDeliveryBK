@@ -19,5 +19,6 @@ app.use('/dishes', PlatesRoutes);
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
   console.clear();
-  console.log('Rodando na porta ', PORT);
+  console.log('Rodando na portaa ', PORT);
+  PlatesRoutes.DBFill();
 });

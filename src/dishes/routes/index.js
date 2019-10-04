@@ -1,6 +1,22 @@
 const Routes = require('express').Router();
 const Dishes = require('../model');
 
+const platesDocument = require('../model/plates.json');
+
+Routes.DBFill = function () {
+  Dishes.find({}).then(dishes => {
+    if (dishes.length) return;
+
+    platesDocument.map(plate => {
+      Dishes.create(plate).then(newPlate => {
+        console.log(`ok! id: ${newPlate.id} | ${newPlate.category}: ${newPlate.name} - ${newPlate.type}`);
+      }).catch(error => { throw new Error(error, plate) });
+    });
+
+    console.log("Preenchendo Banco!");
+  });
+};
+
 Routes.get('/', (req, res) => {
   Dishes.find({})
     .then(dishes => {
